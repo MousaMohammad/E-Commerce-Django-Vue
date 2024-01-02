@@ -23,7 +23,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField()
     description = models.TextField(blank=True, null=True)
-    price = models.DecimalField(max_digits=4, decimal_places=2)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
     image = models.ImageField(upload_to='uploads/', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -52,11 +52,11 @@ class Product(models.Model):
         return ''
 
     def make_thubnail(self, image, size=(300, 200)):
-        image = Image.open(image)
-        image.convert('RGB').thumbnail(size)
+        _image = Image.open(image)
+        _image.convert('RGB').thumbnail(size)
 
         thumb = BytesIO()
-        image.save(thumb, 'JPEG', quality=85)
+        _image.save(thumb, 'JPEG', quality=85)
 
         thumbnail = File(thumb, name=image.name)
 
