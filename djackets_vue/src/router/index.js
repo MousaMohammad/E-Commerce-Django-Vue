@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import ProductView from "@/views/ProductView.vue";
 import CategoryView from "@/views/CategoryView.vue";
 import SearchView from "@/views/SearchView.vue";
+import CartView from "@/views/CartView.vue";
 
 const routes = [
   {
@@ -19,6 +20,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
+    path: '/search',
+    name: 'search',
+    component: SearchView
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: CartView
+  },
+  {
     path: '/:category_slug/:product_slug/',
     name: 'product',
     component: ProductView
@@ -27,11 +38,6 @@ const routes = [
     path: '/:category_slug/',
     name: 'category',
     component: CategoryView
-  },
-  {
-    path: '/search',
-    name: 'search',
-    component: SearchView
   },
 ]
 
