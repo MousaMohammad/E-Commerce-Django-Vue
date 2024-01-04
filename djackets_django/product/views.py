@@ -1,4 +1,6 @@
 from django.http import Http404
+from django.shortcuts import get_object_or_404
+
 from rest_framework import status
 
 from rest_framework.response import Response
@@ -27,14 +29,9 @@ class ProductDetail(APIView):
         serializer = ProductSerializer(product)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class CategoryDetail(APIView):
-    def get_object(self, category_slug):
-        try:
-            return Category.objects.get(slug=category_slug)
-        except Category.DoesNotExist:
-            raise Http404
 
+class CategoryDetail(APIView):
     def get(self, request, category_slug, format=None):
-        category = self.get_object(category_slug)
+        category = get_object_or_404(Category.objects, slug=category_slug)
         serializer = CategorySerializer(category)
         return Response(serializer.data, status=status.HTTP_200_OK)

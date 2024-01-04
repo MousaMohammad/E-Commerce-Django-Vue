@@ -17,7 +17,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    products = ProductSerializer(many=True)
+    products = serializers.SerializerMethodField()
 
     class Meta:
         model = Category
@@ -27,3 +27,7 @@ class CategorySerializer(serializers.ModelSerializer):
             "get_absolute_url",
             "products",
         )
+
+    def get_products(self, category):
+        products = category.product_set.all()
+        return ProductSerializer(products, many=True).data
